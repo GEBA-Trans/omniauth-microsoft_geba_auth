@@ -26,13 +26,23 @@ module OmniAuth
 
       extra do
         {
-          'raw_info' => raw_info
-        }
+          'raw_info' => raw_info,
+          'ad_memberships' => ad_memberships
+}
       end
 
       def raw_info
         @raw_info ||= access_token.get('https://graph.microsoft.com/v1.0/me').parsed
       end
+
+      def ad_memberships
+        @ad_memberships ||= access_token.get(
+            "https://graph.microsoft.com/v1.0/groups?$filter=startswith(displayName,
+            'sg-masterdata')%20or%20startswith(displayName,
+            'sg-orderentry')&$select=displayName"
+        ).parsed
+    end
+
 
       def authorize_params
         super.tap do |params|
