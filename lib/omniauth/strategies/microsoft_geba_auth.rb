@@ -1,7 +1,12 @@
+# Frozen-string-literal: true
+
 require 'omniauth/strategies/oauth2'
 
 module OmniAuth
   module Strategies
+    # OmniAuth strategy for Microsoft Azure AD authentication using the v2.0 endpoint.
+    # This class handles the OAuth2 flow, retrieves user information, and fetches
+    # group memberships from the Microsoft Graph API.
     class MicrosoftV2Auth < OmniAuth::Strategies::OAuth2
       option :name, :microsoft_geba_auth
 
@@ -16,19 +21,19 @@ module OmniAuth
       option :authorize_options, [:scope]
 
       info do
-        { :name       => "#{raw_info['givenName']} #{raw_info['surname']}",
-          :email      => raw_info['mail'],
-          :first_name => raw_info['givenName'],
-          :last_name  => raw_info['surname'] }
+        { name:       "#{raw_info['givenName']} #{raw_info['surname']}",
+          email:      raw_info['mail'],
+          first_name: raw_info['givenName'],
+          last_name:  raw_info['surname'] }
       end
 
-      uid { raw_info["id"] }
+      uid { raw_info['id'] }
 
       extra do
         {
           'raw_info' => raw_info,
           'ad_memberships' => ad_memberships
-}
+        }
       end
 
       def raw_info
@@ -46,19 +51,16 @@ module OmniAuth
       def ad_memberships
         # https://graph.microsoft.com/v1.0/me/memberOf/microsoft.graph.group?$search="displayName:sg-"&$filter=startswith(displayName,'sg-masterdata')%20or%20startswith(displayName,'sg-orderentry')&$select=displayName
         @ad_memberships ||= access_token.get(
-          "https://graph.microsoft.com/v1.0/me/memberOf/microsoft.graph.group?$search=\"displayName:sg-\"&$filter=startswith(displayName,'sg-masterdata')%20or%20startswith(displayName,'sg-orderentry')&$select=displayName",
-          headers: {'ConsistencyLevel' => 'eventual'}
-          ).parsed
+          "https://graph.microsoft.com/v1.0/me/memberOf/microsoft.graph.group?$search=\"displayName:sg-\"&$filter=startswith(displayName,'sg-masterdata')%20or%20startswith(displayName,'sg-orderentry')%20or%20startswith(displayName,'sg-codex')&$select=displayName",
+          headers: { 'ConsistencyLevel' => 'eventual' }
+        ).parsed
         @ad_memberships
       end
-
 
       def authorize_params
         super.tap do |params|
           %w[display score auth_type].each do |v|
-            if request.params[v]
-              params[v.to_sym] = request.params[v]
-            end
+            params[v.to_sym] = request.params[v] if request.params[v]
           end
 
           params[:scope] ||= DEFAULT_SCOPE
