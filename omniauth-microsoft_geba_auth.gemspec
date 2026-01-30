@@ -1,11 +1,9 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'omniauth/microsoft_geba_auth/version'
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |spec|
   spec.name          = "omniauth-microsoft_geba_auth"
-  spec.version       = Omniauth::MicrosoftV2Auth::VERSION
+  spec.version       = "0.2.3"
   spec.authors       = ["Kai-Arne Reiter"]
   spec.email         = ["k.reiter@gebatrans.com"]
   spec.summary       = %q{omniauth provider for Microsoft V2 Authentication}

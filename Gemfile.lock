@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    omniauth-microsoft_geba_auth (0.2.2)
+    omniauth-microsoft_geba_auth (0.2.3)
       oauth2 (>= 2.0.4)
       omniauth-oauth2 (>= 1.8.0)
 
@@ -52,8 +52,8 @@ GEM
     version_gem (1.1.9)
 
 PLATFORMS
+  arm64-darwin-21
   ruby
-  x86-mingw32
 
 DEPENDENCIES
   omniauth-microsoft_geba_auth!
