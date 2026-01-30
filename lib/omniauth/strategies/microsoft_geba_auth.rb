@@ -37,7 +37,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('https://graph.microsoft.com/v1.0/me').parsed
+        @raw_info ||= access_token.get('https://graph.microsoft.com/v1.0/me', snaky: false).parsed
       end
 
       # def ad_memberships
@@ -52,7 +52,8 @@ module OmniAuth
         # https://graph.microsoft.com/v1.0/me/memberOf/microsoft.graph.group?$search="displayName:sg-"&$filter=startswith(displayName,'sg-masterdata')%20or%20startswith(displayName,'sg-orderentry')&$select=displayName
         @ad_memberships ||= access_token.get(
           "https://graph.microsoft.com/v1.0/me/memberOf/microsoft.graph.group?$search=\"displayName:sg-\"&$filter=startswith(displayName,'sg-masterdata')%20or%20startswith(displayName,'sg-orderentry')%20or%20startswith(displayName,'sg-codex')&$select=displayName",
-          headers: { 'ConsistencyLevel' => 'eventual' }
+          headers: { 'ConsistencyLevel' => 'eventual' },
+          snaky: false
         ).parsed
         @ad_memberships
       end
