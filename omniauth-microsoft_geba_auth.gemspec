@@ -13,10 +13,10 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/GEBA-Trans/omniauth-microsoft_geba_auth"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = Dir['lib/**/*'] + %w[LICENSE Rakefile README.md omniauth-microsoft_geba_auth.gemspec]
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "omniauth-oauth2"
+  spec.add_runtime_dependency "omniauth-oauth2", ">= 1.8.0"
   spec.add_runtime_dependency "oauth2", ">= 2.0.4"
 end
