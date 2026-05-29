@@ -29,13 +29,13 @@ end
 
 ## Microsoft Graph user info
 
-The strategy requests the signed-in user's profile from Microsoft Graph using an explicit `$select`:
+Since version `0.3.0`, the strategy requests the signed-in user's profile from Microsoft Graph using an explicit `$select`:
 
 ```text
 https://graph.microsoft.com/v1.0/me?$select=businessPhones,displayName,givenName,jobTitle,mail,mobilePhone,officeLocation,preferredLanguage,surname,onPremisesSamAccountName,userPrincipalName,id
 ```
 
-This includes `onPremisesSamAccountName`, which is exposed as:
+This includes `onPremisesSamAccountName`, so applications can use the on-premises SAM account name/login name. It is exposed as:
 
 ```ruby
 auth_hash.extra.raw_info['userPrincipalName']
