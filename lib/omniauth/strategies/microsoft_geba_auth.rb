@@ -37,7 +37,16 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('https://graph.microsoft.com/v1.0/me', snaky: false).parsed
+        @raw_info ||= begin
+          info = access_token.get(
+            'https://graph.microsoft.com/v1.0/me?$select=businessPhones,displayName,givenName,jobTitle,mail,mobilePhone,officeLocation,preferredLanguage,surname,onPremisesSamAccountName,userPrincipalName,id',
+            snaky: false
+          ).parsed
+
+          info['azureUserPrincipalName'] = info['userPrincipalName']
+          info['userPrincipalName'] = info['onPremisesSamAccountName'] if info['onPremisesSamAccountName']
+          info
+        end
       end
 
       # def ad_memberships
