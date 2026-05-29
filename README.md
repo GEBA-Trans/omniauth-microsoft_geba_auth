@@ -3,21 +3,11 @@
 Microsoft V2 OAuth2 Strategy for OmniAuth.
 Can be used to authenticate with Microsoft Services and get a token for the Microsoft Graph Api.
 
-## Installation
-
-Add this line to your application's Gemfile:
+You can use the gem directly from the repository, for example:
 
 ```ruby
-gem 'omniauth-microsoft_geba_auth'
+gem 'omniauth-microsoft_geba_auth', git: 'https://github.com/GEBA-Trans/omniauth-microsoft_geba_auth.git'
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install omniauth-microsoft_geba_auth
 
 ## Usage
 
