@@ -47,3 +47,23 @@ For example, if Microsoft Graph returns:
 ```
 
 then `raw_info['userPrincipalName']` will return `"krei"`, and `raw_info['azureUserPrincipalName']` will return `"K.Reiter@gebatrans.com"`.
+
+<!-- GEBA hand-off runbook -->
+
+## GEBA operational hand-off
+
+### Wat zijn de veelvoorkomende fouten en storingen, en hoe worden die normaal opgelost?
+
+Check Microsoft OAuth configuration, callback URL, scope, tenant/issuer and the availability of Microsoft identity services. Validate the OmniAuth callback payload without logging sensitive claims.
+
+### Hoe en waar is de logging terug te vinden?
+
+Rails application logs and Microsoft Entra sign-in/audit logs; redact tokens and personal claims.
+
+### Hoe herstart of herstel je de applicatie?
+
+This is an authentication library, not normally a standalone service. Restart the consuming Rails application after gem/config changes and test login/logout/callback in staging.
+
+### Hoe worden updates doorgevoerd, en wat is er verder aan onderhoud nodig?
+
+Update the gem through the consuming application’s dependency process. Maintain supported OAuth API behavior, callback URLs, certificates/secrets and security patches.
