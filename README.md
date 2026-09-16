@@ -56,6 +56,14 @@ then `raw_info['userPrincipalName']` will return `"krei"`, and `raw_info['azureU
 
 Check Microsoft OAuth configuration, callback URL, scope, tenant/issuer and the availability of Microsoft identity services. Validate the OmniAuth callback payload without logging sensitive claims.
 
+
+<!-- GEBA git history bugfix review -->
+
+
+#### Git history: bugfixes and incident-related changes
+The following commits were identified from the available Git history by bugfix, incident, failure, retry, timeout, regression, or recovery-related wording. Use the commit hash to inspect the exact implementation and deployment context; the commit subject is a concise historical indication, not a complete root-cause report.
+- `e7f536f` (2023-03-31) — refactor filter to Fixes GEBA-Trans/omniauth-microsoft_geba_auth#2
+
 ### Hoe en waar is de logging terug te vinden?
 
 Rails application logs and Microsoft Entra sign-in/audit logs; redact tokens and personal claims.
